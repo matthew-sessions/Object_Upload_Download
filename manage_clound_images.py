@@ -5,10 +5,6 @@ import decouple
 import concurrent.futures
 import time
 
-hostname = "https://ewr1.vultrobjects.com"
-access_key_id = "SWTHL2RWGV6G778T1TO6"
-secret_access_key = "J7hMAzOlTICERwz1c5fcrtXXcyWXYEkqfr0EsEJm"
-
 
 class ImageManager:
     session = None
