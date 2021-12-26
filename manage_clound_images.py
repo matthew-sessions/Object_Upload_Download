@@ -74,8 +74,7 @@ class ImageManager:
             self.images_to_process.remove(filename)
 
     def parse_bucket_name(self, filename: str):
-        # return f"{self.cam_id}_{filename.split('_')[0]}"
-        return f"{self.cam_id}"
+        return f"{self.cam_id}_{filename.split('_')[0]}"
 
     def thread_upload(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
