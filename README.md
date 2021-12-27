@@ -36,4 +36,5 @@ Install the python deps with the following command:
 Run the application that uploads images to the cloud:
 ```python3 upload_cloud_images.py```
   
-  ![](https://github.com/matthew-sessions/Pi_Image_Managers/blob/main/design.png "")
+## High Level Architecture
+![](https://github.com/matthew-sessions/Pi_Image_Managers/blob/main/design.png "")
