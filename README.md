@@ -28,11 +28,11 @@ cam_id=cam_id
 * **store_path** - the path the folder where images will be stored for the long term (at the end of the path make sure there is no **/**)
 * **cam_id** - This is the ID you assign to the Pi. This will allow you to know which Pi took what photos.
   
-### Step3
+### Step 4 
 Install the python deps with the following command:
 ```pip3 install -r base.txt```
   
-### Step 4
+### Step 5
 Run the application that uploads images to the cloud:
 ```python3 upload_cloud_images.py```
   
