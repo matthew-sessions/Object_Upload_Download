@@ -27,7 +27,6 @@ class ImageManager:
         self.storage_folder_path = storage_folder_path
         self.images_to_process = set()
         self.processed_images = set()
-        self.buckets = set()
 
     def create_client(self):
         self.session = boto3.session.Session()
@@ -38,9 +37,8 @@ class ImageManager:
             aws_secret_access_key=secret_access_key,
         )
 
-    def maybe_create_bucket(self, bucket_name: str):
-        if bucket_name not in self.buckets:
-            self.client.create_bucket(Bucket=bucket_name)
+    def maybe_create_bucket(self):
+        self.client.create_bucket(Bucket=self.cam_id)
 
     def scan_new_images(self):
         for image in os.listdir(self.tmp_folder_path):
@@ -59,13 +57,12 @@ class ImageManager:
             print("File move issue")
 
     def upload_and_move(self, filename: str):
-        bucket_name = self.parse_bucket_name(filename)
-        print(f"Maybe create bucket", bucket_name)
-        self.maybe_create_bucket(bucket_name)
+        bucket_name = self.cam_id
+        folder_name = self.parse_folder_name(filename)
         self.client.upload_file(
             Filename=f"{self.tmp_folder_path}/{filename}",
             Bucket=bucket_name,
-            Key=filename,
+            Key=f"{folder_name}/{filename}",
         )
         print("Uploaded file: ", filename)
         self.move_file_to_storage(filename)
@@ -73,8 +70,8 @@ class ImageManager:
         if filename in self.images_to_process:
             self.images_to_process.remove(filename)
 
-    def parse_bucket_name(self, filename: str):
-        return f"{self.cam_id}_{filename.split('_')[0]}"
+    def parse_folder_name(self, filename: str):
+        return f"{filename.split('_')[0]}"
 
     def thread_upload(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
@@ -109,4 +106,5 @@ if __name__ == "__main__":
         cam_id=cam_id,
     )
     image_manager.create_client()
+    image_manager.maybe_create_bucket()
     image_manager.run()
