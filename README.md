@@ -9,7 +9,8 @@ Turn on the Pi and cd into the directory that you want this application to live.
 cd into Pi_Image_Managers
 
 ### Step 3
-You will want to edit the .env file. You can do so by running the following:
+You will want to edit the .env file which contains info on the Vultr Cloud. 
+You can do so by running the following:
 ```nano .env```
 Then add the listed values below:
 ```
